@@ -1,9 +1,33 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>Insert title here</title>
-</head>
+<html th:replace="~{fragments/layout :: layout (~{::body})}">
 <body>
-	<h1>Estou na página do Cliente</h1>
+	<h1>Estou na pagina do Cliente</h1>
+	<div class="panel-body">
+		<div class="table-responsive">
+			<table class= "table table-sm 
+			table-striped table-hover table_bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>CPF</th>
+					<th>Data</th>						
+			</thead>
+			<tbody>
+				<tr th:each="c : ${clientes}">
+				<td th:text="${c.id}"></td>
+				<td th:text="${c.nome}"> </td>
+				<td th:text="${c.cpf}"> </td>
+				<td th:text="${#dates.format(c.data, 'dd/MM/yyy')}"></td>
+				</tr>				
+
+				
+			</tbody>
+			
+				
+			</table>
+		
+		</div>
+	</div>
 </body>
 </html>
