@@ -1,12 +1,40 @@
 package br.com.tt.cliente;
 
+import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.TemporalType.DATE;
+
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
 public class Cliente {
 
+	@Id
+	@GeneratedValue(strategy=IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)	
+	@NotBlank(message="Nome é informação obrigatório")
 	private String nome;
+	
+	@Column(length = 11)
+	@NotBlank(message="Nome é informação obrigatório")
+	@Size(max=11, min=11)
+	@Pattern(regexp="\\d{11}", message="Cpf necessita ter 11 Digitos")
 	private String cpf;
+	
+	@Temporal(DATE)
+	@DateTimeFormat(pattern = "yyy-MM-dd")
 	private Date data;
 
 	public Cliente() {
