@@ -3,6 +3,9 @@
 <body>
 	<h1>Estou na pagina do Cliente</h1>
 	<div class="panel-body">
+		<a class="btn btn-sm btn-primary" style="margin:  15px" 
+		   href="/cliente/cadastro" >  Cadastrar Novo </a>
+		          	
 		<div class="table-responsive">
 			<table class= "table table-sm 
 			table-striped table-hover table_bordered">
@@ -11,7 +14,8 @@
 					<th>ID</th>
 					<th>Nome</th>
 					<th>CPF</th>
-					<th>Data</th>						
+					<th>Data</th>	
+					<th></th>					
 			</thead>
 			<tbody>
 				<tr th:each="c : ${clientes}">
@@ -19,6 +23,17 @@
 				<td th:text="${c.nome}"> </td>
 				<td th:text="${c.cpf}"> </td>
 				<td th:text="${#dates.format(c.data, 'dd/MM/yyy')}"></td>
+				<td>
+				<div class="btn-group pull-right" >
+				<a class="btn btn-sm btn-primary" 
+				   th:href="@{/cliente/editar/{id}(id=${c.id})}" >
+				   Editar
+				   </a>
+				<a class="btn btn-sm btn-danger" 
+				   th:href="@{/cliente/excluir/{id}(id=${c.id})}" >
+				   Excluir
+				   </a>
+				</td>
 				</tr>				
 
 				
