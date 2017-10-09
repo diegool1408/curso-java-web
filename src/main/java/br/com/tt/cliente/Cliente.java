@@ -20,19 +20,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Cliente {
 
 	@Id
-	@GeneratedValue(strategy=AUTO)
+	@GeneratedValue(strategy = AUTO)
 	private Long id;
-	
-	@Column(nullable = false)	
-	@NotBlank(message="Nome é informação obrigatório")
+
+	@Column(nullable = false)
+	@NotBlank(message = "Nome é informação obrigatório")
 	private String nome;
-	
+
 	@Column(length = 11)
-	@NotBlank(message="Nome é informação obrigatório")
-	@Size(max=11, min=11)
-	@Pattern(regexp="\\d{11}", message="Cpf necessita ter 11 Digitos")
+	@NotBlank(message = "Nome é informação obrigatório")
+	@Size(max = 11, min = 11)
+	@Pattern(regexp = "\\d{11}", message = "Cpf necessita ter 11 Digitos")
 	private String cpf;
-	
+
 	@Temporal(DATE)
 	@DateTimeFormat(pattern = "yyy-MM-dd")
 	private Date data;
