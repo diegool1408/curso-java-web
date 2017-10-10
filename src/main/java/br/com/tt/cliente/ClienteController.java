@@ -28,6 +28,7 @@ public class ClienteController {
 		ModelAndView mv = new ModelAndView("cliente/index");
 
 		mv.addObject("clientes", service.consulta());
+		mv.addObject("cpf", "11111111111");
 		return mv;
 
 	}
