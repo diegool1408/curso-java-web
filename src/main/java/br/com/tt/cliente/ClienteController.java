@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.tt.exception.SistemaException;
+import br.com.tt.model.CadastroReceita;
+
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -60,6 +63,27 @@ public class ClienteController {
 	ModelAndView excluir( @PathVariable("id") Long id){
 		service.excluir( id );
 		return cliente();
+		
+	}
+	
+	@GetMapping("/consulta/receita")
+	ModelAndView telaConsultaReceita(){
+		ModelAndView mv = new ModelAndView("/cliente/consulta-receita");
+		mv.addObject("cadastroReceita", new CadastroReceita());
+		
+		return mv;
+		
+	}
+	
+	
+	@PostMapping("/consulta/receita")
+	ModelAndView consultaReceita( CadastroReceita cadastroReceita ) throws SistemaException{
+		
+		Cliente cliente = new Cliente();
+		cadastroReceita = service.consultaReceita(cadastroReceita.getCnpj());
+		cliente.setNome(cadastroReceita.getFantasia());
+		//cliente.setCpf(cadastroReceita.getCnpj());
+		return cadastro( cliente );
 		
 	}
 

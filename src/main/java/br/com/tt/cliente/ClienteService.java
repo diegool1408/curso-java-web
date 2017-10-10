@@ -1,18 +1,20 @@
 package br.com.tt.cliente;
 
+import static br.com.tt.util.HttpClient.get;
+import static br.com.tt.util.Util.jsonToObject;
+
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.tt.exception.SistemaException;
 import br.com.tt.model.CadastroReceita;
 import br.com.tt.util.HttpClient;
+import br.com.tt.util.Util;
 
 
 @Service
@@ -50,21 +52,18 @@ public class ClienteService {
 		
 	}
 
-	public CadastroReceita consultaReceita(String cnpj ) throws Exception {
+	public CadastroReceita consultaReceita(String cnpj ) throws SistemaException {
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String url = "https://www.receitaws.com.br/v1/cnpj/00000000000191";
-		String receitaJson = HttpClient.get(url);
-		CadastroReceita cadReceita = mapper.readValue(receitaJson, CadastroReceita.class);
 		
-		System.out.println(cadReceita.getFantasia());
-		return null;
+		return jsonToObject(get("https://www.receitaws.com.br/v1/cnpj/"+cnpj), CadastroReceita.class);
 		
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws SistemaException {
 		
-		new ClienteService().consultaReceita("");
+		CadastroReceita cad = new ClienteService().consultaReceita("00000000000191");
+		
+		System.out.println(cad.getFantasia());
 		
 	}
 	
